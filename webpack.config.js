@@ -8,6 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev;
+const ASSET_PATH = process.env.ASSET_PATH || '';
 
 const optimization = () => {
     const config = {
@@ -39,7 +40,6 @@ const cssLoaders = extra => {
     if (extra) {
       loaders.push(extra)
     }
-  
     return loaders
   }
 
@@ -53,6 +53,7 @@ module.exports = {
     output: {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
+        publicPath: ASSET_PATH,
     },
     optimization: optimization(),
     devServer: {
@@ -70,6 +71,9 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
         }),
+        // new webpack.DefinePlugin({
+        //     'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH),
+        // }),
         // new CopyWebpackPlugin([
         //     {
         //         from
@@ -90,19 +94,38 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: cssLoaders()
+                use: [{
+                    loader: MiniCssExtractPlugin.loader, 
+                    options: {
+                        publicPath: '/'
+                    }
+                },
+                {
+                    loader: "css-loader"
+                }]
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: cssLoaders('sass-loader')
-              },
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    'css-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            implementation: require('sass'),
+                        },
+                    },
+                ],
+            },
             {
                 test: /\.(png|jpg|svg|gif)$/,
-                use: ['file-loader']
+                use: ['file-loader'],
             },
             {
                 test: /\.(ttf|woff|woff2|eot)$/,
-                use: ['file-loader']
+                use: ['file-loader'],
             }
         ]
     }
