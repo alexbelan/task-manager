@@ -60,6 +60,7 @@ module.exports = {
         port: 4200,
         hot: isDev,
     },
+    devtool: "source-map",
     plugins: [
         new HTMLWebpackPlagin({
             template: './index.html',
@@ -71,9 +72,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
         }),
-        // new webpack.DefinePlugin({
-        //     'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH),
-        // }),
+
         // new CopyWebpackPlugin([
         //     {
         //         from

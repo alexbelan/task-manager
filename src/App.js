@@ -1,6 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, {useState} from 'react'
+import firebase from 'firebase';
 
 export default function App() {
-    return <h1>Webpack setup</h1>
+    const [db, setDb] = useState(firebase.database());
+
+    return (
+        <h1>Wellcome to task meneger react.js</h1>
+    )
 }
