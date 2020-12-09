@@ -1,10 +1,6 @@
-import React, {useState} from 'react'
-import firebase from 'firebase';
+import React from 'react'
+import Login from './components/auth/login'
 
 export default function App() {
-    const [db, setDb] = useState(firebase.database());
-
-    return (
-        <h1>Wellcome to task meneger react.js</h1>
-    )
-}
+    return <Login/>
+};
