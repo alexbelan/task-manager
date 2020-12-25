@@ -23,6 +23,6 @@ const app = (
 )
 
 ReactDOM.render(
-    app,
+  app,
   document.getElementById('root')
 );

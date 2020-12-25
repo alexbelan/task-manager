@@ -1,0 +1,1 @@
+export const DOMEN_SITE = "http://localhost:4200"
