@@ -50,7 +50,7 @@ export default function Register () {
     }
 
     return (
-        <>
+        <div className="form">
             <h2>Register user:</h2>
             <form onSubmit={submitChackin}>
                 <p>Email: <input 
@@ -77,6 +77,6 @@ export default function Register () {
                 <input type="submit"/>
             </form>
             <Error msg={errorApp} />
-        </>
+        </div>
     )
 }

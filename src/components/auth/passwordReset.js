@@ -29,7 +29,7 @@ export default function PasswordReset () {
     }
 
     return (
-        <>
+        <div className="form">
             <h2>Forgot password:</h2>
             <form onSubmit={submitPasswordReset}>
                 <p>Email: <input 
@@ -42,6 +42,6 @@ export default function PasswordReset () {
                 <input type="submit"/>
             </form>
             <Error msg={errorApp} />
-        </>
+        </div>
     )
 }

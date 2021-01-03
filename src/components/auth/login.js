@@ -47,8 +47,8 @@ export default function Login () {
     }
 
     return (
-        <>
-            <h2>Entry</h2>
+        <div className="form">
+            <h2>Entry:</h2>
             <form onSubmit={submitAuth}>
                 <p>Email: <input 
                 type="email"
@@ -66,12 +66,12 @@ export default function Login () {
                   /></p>
                 <input type="submit"/>
             </form>
-            <div>
+            <div className="link-auth">
                 <Link to="/auth/register">Register</Link>
                 <Link to="/auth/passreset">Forgot password</Link>
             </div>
             <Error msg={errorApp} />
-        </>
+        </div>
     )
 }
 
