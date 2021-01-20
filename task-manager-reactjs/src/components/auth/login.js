@@ -1,17 +1,12 @@
-import React, { useState } from 'react'
-import firebase from 'firebase';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { DOMEN_SERVER, DOMEN_SITE } from '../../config/const';
+import { Link } from "react-router-dom";
 import { Error } from '../app/error';
-import { getEmail, getUserPhoto, getUserName, getUserVerified } from '../../redux/actions';
-import { DOMEN_SITE } from '../../config/const'
+import LocalStorageApi from '../../api/localStorage';
 
 
 export default function Login () {
-    
-    const dispatch = useDispatch()
-    // const userState = useSelector(state => state.user)
-    const [errorApp, setErrorApp] = useState("");
 
     const [login, setLogin] = useState(() => {
         return {
@@ -19,6 +14,8 @@ export default function Login () {
             password: "",
         }
     })
+
+    const [error, setError] = useState("");
 
     const changeInputLogin = event => {
         event.persist()
@@ -32,18 +29,19 @@ export default function Login () {
 
     const submitAuth = (event) => {
         event.preventDefault();
-        firebase.auth().signInWithEmailAndPassword(login.email, login.password)
-            .then((user) => {
-                // dispatch(getUserName(user.user.displayName))
-                // dispatch(getEmail(user.user.email))
-                // dispatch(getUserPhoto(user.user.photoURL))
-                // dispatch(getUserVerified(user.user.emailVerified))
-                window.location.href = DOMEN_SITE + "/"
-            })
-            .catch((error) => {
-                console.log(error)
-                setErrorApp(error.message)
-            });
+        axios.post(DOMEN_SERVER + '/auth/login/', {
+            email: login.email,
+            password: login.password
+        }).then(res => {
+            if (res.data.code && res.data.code === 2) {
+                setError('Wrong password or email');
+            } else {
+                LocalStorageApi.addToken(res.data.token)
+                window.location.href = DOMEN_SITE
+            }
+        }).catch(() => {
+            setError("An error occurred on the server");
+        })
     }
 
     return (
@@ -64,13 +62,12 @@ export default function Login () {
                 value={login.password}
                 onChange={changeInputLogin}
                   /></p>
+                  <div>
+                      <Link to="/auth/register">Registration</Link>
+                  </div>
                 <input type="submit"/>
+                <Error msg={error} />
             </form>
-            <div className="link-auth">
-                <Link to="/auth/register">Register</Link>
-                <Link to="/auth/passreset">Forgot password</Link>
-            </div>
-            <Error msg={errorApp} />
         </div>
     )
 }

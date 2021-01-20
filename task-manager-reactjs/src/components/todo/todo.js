@@ -1,23 +1,47 @@
-import React from "react";
-import firebase from 'firebase';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-} from "react-router-dom";
-import { DOMEN_SITE } from "../../config/const";
+import React, {Component} from "react";
+import { connect } from "react-redux";
+import LocalStorageApi from "../../api/localStorage";
+import { DOMEN_SERVER, DOMEN_SITE } from "../../config/const";
+import instance from "../../config/instance";
+import {clearUserData, getUserData} from "../../redux/actions/userActions"
 
-export default function ToDo() {
+class ToDo extends Component {
 
-    const logOut = () => {
-        firebase.auth().signOut()
+    constructor(props) {
+        super(props)
+        instance.get(DOMEN_SERVER + "/auth/user").then((res) => {
+            this.props.getUserData(res.data)
+        }).catch(() => {
+            LocalStorageApi.deleteToken()
+            window.location.href = DOMEN_SITE + "/auth"
+        })
+    }
+
+    logOut() {
+        this.props.clearUserData()
+        LocalStorageApi.deleteToken()
         window.location.href = DOMEN_SITE + "/auth"
     }
 
-    return (
-        <>
-            <h1>Добро пожаловать в ToDo</h1>
-            <button onClick={logOut}>Log Out</button>
-        </>
-    )
+    render(h) {
+        return (
+            <>
+                <h1>Добро пожаловать {this.props.user.username}</h1>
+                <button onClick={this.logOut.bind(this)}>Log Out</button>
+            </>
+        )
+    }
 } 
+
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+const mapDispatchToProps = {
+    getUserData,
+    clearUserData,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToDo)

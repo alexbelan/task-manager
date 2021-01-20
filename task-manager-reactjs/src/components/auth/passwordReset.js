@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import firebase from 'firebase';
 import { Error } from '../app/error';
 
 
@@ -16,16 +15,6 @@ export default function PasswordReset () {
 
     const submitPasswordReset = event => {
         event.preventDefault();
-        firebase.auth().sendPasswordResetEmail(email)
-            .then(() => {
-                console.log("Email sent")
-                if (errorApp !== "") {
-                    setErrorApp("");
-                }
-            })
-            .catch((error) => {
-                setErrorApp(error.message)
-            });
     }
 
     return (

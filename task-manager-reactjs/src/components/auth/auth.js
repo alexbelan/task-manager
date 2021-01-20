@@ -1,12 +1,7 @@
 import React from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-} from "react-router-dom";
-import Register from "./register";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./login";
-import PasswordReset from "./passwordReset";
+import Register from "./register";
 
 export default function Auth() {
     return (
@@ -15,11 +10,8 @@ export default function Auth() {
                 <Route path="/auth/register">
                     <Register/>
                 </Route>
-                <Route path="/auth/passreset">
-                    <PasswordReset/>
-                </Route>
-                <Route exact path="/auth">
-                    <Login/>
+                <Route path="/auth">
+                    <Login />
                 </Route>
             </Switch>
         </Router>
