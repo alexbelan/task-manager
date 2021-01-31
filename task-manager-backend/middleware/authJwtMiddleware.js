@@ -14,7 +14,7 @@ module.exports = passport => {
         new JwtStrategy(options, async (payload, done) => {
             try {
                 const Users = await mongoose.model('Users')
-                const user = await Users.findById(payload.userId);
+                const user = await Users.findOne({userId: payload.userId});
 
 
                 if(user) {

@@ -5,6 +5,8 @@ const passport = require('passport');
 const config = require('./config');
 const auth = require('./routers/auth')
 const todo = require('./routers/todo')
+const list = require('./routers/list')
+const file = require('./routers/file')
 
 const PORT = process.env.PORT || 3000;
 
@@ -14,6 +16,8 @@ app.use(express.json());
 app.use(cors());
 app.use('/auth', auth);
 app.use('/todo', todo);
+app.use('/list', list);
+app.use('/file', file);
 app.use(passport.initialize())
 require('./middleware/authJwtMiddleware')(passport)
 

@@ -1,9 +1,15 @@
-const {Schema, model} = require('mongoose');
+const {Schema, model, connection} = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
+
+autoIncrement.initialize(connection)
 
 const File = new Schema({
-    id: {type: Number, index: {unique: true}},
-    user: {type: Schema.Types.ObjectId, ref: 'Users'},
-    name: {type: String, maxlength: 50, required: true}
+    fileId: {type: Number, unique: true},
+    user: {type: Number, ref: 'Users'},
+    name: {type: String, maxlength: 50, required: true},
+    list: [{type: Number, ref: 'List'}]
 })
 
-module.exports = model('Users', Users)
+File.plugin(autoIncrement.plugin, {model: 'File', field: "fileId"})
+
+module.exports = model('File', File);

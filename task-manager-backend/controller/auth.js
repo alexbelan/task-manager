@@ -20,11 +20,18 @@ class authController {
             if (candidate) {
                 return res.json({message: 'User is email', code: 1})
             }
-            const hashPassword = bcrypt.hashSync(password, 10);
-            const user = new Users({username, email, password: hashPassword})
-            await user.save();
+            Users.nextCount(async (err, count) => {
+                if (err) {
+                    console.log(err + " " + count)
+                    res.status(400).json({message: 'Identity error'})
+                }
+                const hashPassword = bcrypt.hashSync(password, 10);
+                const user = new Users({username, email, password: hashPassword})
+                await user.save();
+            })
             return res.json(true)
         } catch (e) {
+            console.log(e)
             res.status(400).json({message: 'Registration error'})
         }
     }
@@ -40,7 +47,7 @@ class authController {
             if(!validPassword) {
                 return res.json({message: 'Password error', code: 2 })
             }
-            const token = generateAccessToken(user._id, user.email);
+            const token = generateAccessToken(user.userId, user.email);
             return res.json({token})
         } catch (e) {
             console.log(e)
@@ -52,15 +59,8 @@ class authController {
         try {
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
-            const userData = await Users.findById(userId)
-            const user = {
-                username: userData.username,
-                email: userData.email,
-                img: userData.img,
-                isActivation: userData.isActivation,
-                dateReg: userData.date
-            }
-            return res.json(user);
+            const userData = await Users.findOne({userId: userId}, 'username email img isActivation dateReg')
+            return res.json(userData);
         } catch (e) {
             console.log(e)
             return res.json(e)
