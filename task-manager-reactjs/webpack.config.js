@@ -120,8 +120,19 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(png|jpg|svg|gif)$/,
+                test: /\.(png|jpg|gif)$/,
                 use: ['file-loader'],
+            },
+            {
+                test: /\.svg$/,
+                use: [
+                  {
+                    loader: 'svg-url-loader',
+                    options: {
+                      limit: 10000,
+                    },
+                  },
+                ],
             },
             {
                 test: /\.(ttf|woff|woff2|eot)$/,

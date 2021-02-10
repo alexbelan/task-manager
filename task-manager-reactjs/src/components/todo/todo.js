@@ -4,6 +4,8 @@ import LocalStorageApi from "../../api/localStorage";
 import { DOMEN_SERVER, DOMEN_SITE } from "../../config/const";
 import instance from "../../config/instance";
 import {clearUserData, getUserData} from "../../redux/actions/userActions"
+import {getFile} from "../../redux/actions/todoActions"
+import Sidebar from "./sidebar";
 
 class ToDo extends Component {
 
@@ -15,6 +17,7 @@ class ToDo extends Component {
             LocalStorageApi.deleteToken()
             window.location.href = DOMEN_SITE + "/auth"
         })
+        this.props.getFile()
     }
 
     logOut() {
@@ -28,6 +31,9 @@ class ToDo extends Component {
             <>
                 <h1>Добро пожаловать {this.props.user.username}</h1>
                 <button onClick={this.logOut.bind(this)}>Log Out</button>
+                <div className="todo-app">
+                    <Sidebar/>
+                </div>
             </>
         )
     }
@@ -35,13 +41,15 @@ class ToDo extends Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        todo: state.todo
     }
 }
 
 const mapDispatchToProps = {
     getUserData,
     clearUserData,
+    getFile,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToDo)

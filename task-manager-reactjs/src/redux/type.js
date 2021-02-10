@@ -1,2 +1,4 @@
 export const GET_USER_DATA = "USER/GET_DATA"
 export const CLEAR_USER_DATA = "USER/CLEAR_DATA"
+export const GET_FILE = "TODO/GET_FILE"
+export const GET_FILE_ERROR = "TODO/GET_FILE_ERROR"

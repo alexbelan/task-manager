@@ -76,12 +76,12 @@ class fileController {
                 }
             }
             const listNoFile = await List.find({file: -1, user: userId}, "name listId file")
-            if (listNoFile !== null && listNoFile.length !== 0) {
-                const newFileAll = [{"list_no_file": listNoFile}].concat(fileAll)
-                return res.json(newFileAll)
-            } else {
-                return res.json(fileAll)
+            const data = {
+                files: fileAll,
+                list_no_file: listNoFile,
             }
+        
+            return res.json(data)
         } catch(e) {
             console.log(e)
             return res.status(400).json({message: 'Get File error'})

@@ -1,3 +1,4 @@
+@import "./sidebar.scss";
 @import "./fonts.css";
 
 $width_form: 300px;
@@ -10,7 +11,12 @@ $border: 1px solid gray;
     padding: 20px;
 }
 
-h1, p, a {
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h4, p, a {
     font-family: "Roboto";
     font-weight: normal;
     font-style: normal;
@@ -24,6 +30,14 @@ h2 {
     // color: $red;
 }
 
+.todo-app {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+}
+
 .form {
     @include form;
     display: flex;
@@ -32,9 +46,6 @@ h2 {
     flex-direction: column;
     h2 {
         margin: 5px 0;
-    }
-    form {
-
     }
     .link-auth {
         width: 100%;
