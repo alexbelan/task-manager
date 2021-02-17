@@ -4,8 +4,9 @@ import LocalStorageApi from "../../api/localStorage";
 import { DOMEN_SERVER, DOMEN_SITE } from "../../config/const";
 import instance from "../../config/instance";
 import {clearUserData, getUserData} from "../../redux/actions/userActions"
-import {getFile} from "../../redux/actions/todoActions"
+import {getFile} from "../../redux/actions/fileActions"
 import Sidebar from "./sidebar";
+import TodoesView from "./TodoesView";
 
 class ToDo extends Component {
 
@@ -33,6 +34,7 @@ class ToDo extends Component {
                 <button onClick={this.logOut.bind(this)}>Log Out</button>
                 <div className="todo-app">
                     <Sidebar/>
+                    <TodoesView/>
                 </div>
             </>
         )

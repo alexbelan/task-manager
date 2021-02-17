@@ -1,4 +1,11 @@
-export const GET_USER_DATA = "USER/GET_DATA"
-export const CLEAR_USER_DATA = "USER/CLEAR_DATA"
-export const GET_FILE = "TODO/GET_FILE"
-export const GET_FILE_ERROR = "TODO/GET_FILE_ERROR"
+export const GET_USER_DATA = "USER/GET_DATA";
+export const CLEAR_USER_DATA = "USER/CLEAR_DATA";
+export const GET_FILE = "TODO/GET_FILE";
+export const GET_FILE_ERROR = "TODO/GET_FILE_ERROR";
+export const GET_LIST_TODOE = "TODO/GET_LIST_TODOE";
+export const READY_TODO = "TODO/READY_TODO";
+export const CANCEL_TODO = "TODO/CANCEL_TODO";
+export const ADD_TODO = "TODO/ADD_TODO";
+export const CHANGE_LIST = "APP/CHANGE_LIST";
+export const FILE_NEW_LIST = "APP/FILE_NEW_LIST";
+export const NEW_LIST = "TODO/NEW_LIST";

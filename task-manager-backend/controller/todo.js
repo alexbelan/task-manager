@@ -80,7 +80,7 @@ class todoController {
             if (todoChange !== null) {
                 return res.json({message: 'Ready change', result: true})
             } else {
-                return res.json({message: 'Ready Todo error'})
+                return res.status(400).json({message: 'Ready Todo error'})
             }
         } catch(e) {
             console.log(e)

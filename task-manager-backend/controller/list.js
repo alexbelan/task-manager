@@ -64,12 +64,8 @@ class listController {
             const {listId} = req.body;
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
-            const listTodo = await Todo.find({list: listId, user: userId}, "title ready")
-            if (listTodo.length === 0) {
-                return res.json({result: false})
-            } else {
-                return res.json(listTodo)
-            }
+            const listTodo = await Todo.find({list: listId, user: userId}, "title ready todoId")   
+            return res.json(listTodo)
         } catch(e) {
             return res.status(400).json({message: 'Get List error'})
         }

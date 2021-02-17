@@ -64,6 +64,9 @@ div.file h4 {
             &.not-list {
                 cursor: default;
             }
+            input[type=text] {
+                height: 14px;
+            }
         }
     }
 }
