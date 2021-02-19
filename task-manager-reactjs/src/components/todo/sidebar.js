@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { changeList, fileNewList } from '../../redux/actions/appActions'
 import { getTodoesList } from '../../redux/actions/listActions'
+import AddFile from './AddFile'
 import { ShowFiles } from './showFiles'
 import { ShowLists } from './showLists'
 
@@ -12,13 +13,16 @@ export default function Sidebar() {
 
     const sidebar = {
         clickFile: (e) => {
-            const target = e.target.className
+            const target = e.target.className.split(' ')[0];
             const fileLists = e.currentTarget.nextElementSibling
-            console.log(fileLists)
+            console.log(target)
             if (target === "add-list") {
                 dispatch(fileNewList(fileLists.getAttribute('data-id')))
                 let listLength = fileLists.getAttribute('data-length')
                 listLength++;
+                // if (listLength >= 0 && fileLists.getAttribute('data-open') === "true") {
+
+                // }
                 fileLists.style.height = 30 * listLength + "px"
                 fileLists.setAttribute('data-open', true)
             } else {
@@ -58,6 +62,7 @@ export default function Sidebar() {
             <div className="other-todo">
                 <ShowFiles fileData={fileData} sidebar={sidebar}/>
             </div>
+            <AddFile/>
         </div>
     )
 }

@@ -10,7 +10,7 @@ export const ShowLists = ({fileData, sidebar}) => {
     let showList = []
     if (fileData.list_no_file.length !== 0) {
         fileData.list_no_file.map((obj, index) => {
-            showList.push(<li className="list" onClick={sidebar.openList} key={index} data-id={obj.listId}><img src={listImg} />{obj.name}</li>)
+            showList.push(<li className="list" onClick={sidebar.openList} key={index} data-id={obj.listId}><img className="icon" src={listImg} />{obj.name}</li>)
         })
     }
 
@@ -18,14 +18,14 @@ export const ShowLists = ({fileData, sidebar}) => {
 
     if (showList.length === 0) {
         return (
-            <div>
+            <div className="file-block">
                 <div 
                     onClick={sidebar.clickFile} 
                     className="file" >
-                        <img src={folder} />
+                        <img className="icon" src={folder} />
                         <h4>Другие списки</h4>
                         <div className="add-list">
-                            <img className="add-list" src={add} />
+                            <img className="add-list icon" src={add} />
                         </div>
                     </div>
                 <ul className="lists" data-open="false" data-length={showList.length} data-id="-1">
@@ -39,10 +39,10 @@ export const ShowLists = ({fileData, sidebar}) => {
                 <div 
                     onClick={sidebar.clickFile} 
                     className="file" >
-                        <img src={folder} />
+                        <img className="icon" src={folder} />
                         <h4>Другие списки</h4>
                         <div className="add-list">
-                            <img className="add-list" src={add} />
+                            <img className="add-list icon" src={add} />
                         </div>
                     </div>
                 <ul className="lists" data-open="false" data-length={showList.length} data-id="-1">

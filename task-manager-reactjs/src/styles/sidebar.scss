@@ -1,5 +1,33 @@
 $icon_folder: "./img/folder.svg";
 
+@mixin user_select_none {
+    -webkit-touch-callout: none; 
+    -webkit-user-select: none;   
+    -khtml-user-select: none;   
+    -moz-user-select: none;      
+    -ms-user-select: none;       
+    user-select: none; 
+}
+
+@mixin icon($margin) {
+    img.icon {
+        height: 20px;
+        margin: $margin;
+    }
+}
+
+@mixin file {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    cursor: pointer;
+    @include icon(0 10px 0 0);
+    h4 {
+        @include user_select_none();
+        margin: 0;
+    }
+}
+
 li {
     list-style: none;
 }
@@ -11,35 +39,14 @@ ul.lists, div.lists {
 }
 
 div.file h4 {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none;   /* Chrome/Safari/Opera */
-    -khtml-user-select: none;    /* Konqueror */
-    -moz-user-select: none;      /* Firefox */
-    -ms-user-select: none;       /* Internet Explorer/Edge */
-    user-select: none; 
+    @include user_select_none()
 }
 
 
 .file-block {
     border: 1px orange solid;
-    padding: 10px 0;
     div.file {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        h4 {
-            margin: 0;
-            -webkit-touch-callout: none; /* iOS Safari */
-            -webkit-user-select: none;   /* Chrome/Safari/Opera */
-            -khtml-user-select: none;    /* Konqueror */
-            -moz-user-select: none;      /* Firefox */
-            -ms-user-select: none;       /* Internet Explorer/Edge */
-            user-select: none;  
-        }
-        img {
-            height: 20px;
-            margin-right: 10px;
-        }
+        @include file()
     }
     ul {
         margin: 0 0 0 30px;
@@ -48,10 +55,7 @@ div.file h4 {
             display: flex;
             margin: 10px 0;
             cursor: pointer;
-            img {
-                height: 20px;
-                margin-right: 10px;
-            }
+            @include icon(0 10px 0 0);
             p {
                 margin: 0;
                 -webkit-touch-callout: none; /* iOS Safari */

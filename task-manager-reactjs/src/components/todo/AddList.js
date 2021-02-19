@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import add from '../../img/add.svg'
+import { fileNewList } from '../../redux/actions/appActions';
 import { newList } from '../../redux/actions/fileActions';
 
 export default function() {
@@ -18,9 +19,10 @@ export default function() {
 
     const addList = () => {
         dispatch(newList({name: name, fileId: fileId}))
+        dispatch(fileNewList(-1))
     }
 
     return (
-        <li><div onClick={addList}><img src={add}/></div><input type="text" value={name} onChange={changeInputName} /></li>
+        <li><div onClick={addList}><img className="icon" src={add}/></div><input type="text" value={name} onChange={changeInputName} /></li>
     )
 }

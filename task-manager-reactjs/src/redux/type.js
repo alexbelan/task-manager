@@ -9,3 +9,4 @@ export const ADD_TODO = "TODO/ADD_TODO";
 export const CHANGE_LIST = "APP/CHANGE_LIST";
 export const FILE_NEW_LIST = "APP/FILE_NEW_LIST";
 export const NEW_LIST = "TODO/NEW_LIST";
+export const NEW_FILE = "TODO/NEW_FILE";

@@ -1,6 +1,6 @@
 import { DOMEN_SERVER } from "../../config/const"
 import instance from "../../config/instance"
-import { GET_FILE, GET_FILE_ERROR, NEW_LIST } from "../type"
+import { GET_FILE, GET_FILE_ERROR, NEW_FILE, NEW_LIST } from "../type"
 
 export const getFile = () => {
     return dispatch => {
@@ -28,6 +28,18 @@ export const newList = obj => {
                     fileId: obj.fileId,
                     list: res.data
                 },
+            })
+        })
+    }
+}
+
+export const newFile = name => {
+    return dispatch => {
+        instance.post(DOMEN_SERVER + "/file/add", {name: name})
+        .then(res => {
+            dispatch({
+                type: NEW_FILE,
+                payload: res.data,
             })
         })
     }

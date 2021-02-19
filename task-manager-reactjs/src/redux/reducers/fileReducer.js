@@ -1,4 +1,4 @@
-import { GET_FILE, GET_FILE_ERROR, NEW_LIST } from "../type";
+import { GET_FILE, GET_FILE_ERROR, NEW_FILE, NEW_LIST } from "../type";
 
 const initialFileState = {
     files: [],
@@ -11,6 +11,13 @@ export function fileReducer(state = initialFileState, action) {
             return action.payload
         case GET_FILE_ERROR:
             return "error"
+        case NEW_FILE:
+            let newFiles = state.files
+            newFiles.push(action.payload)
+            return {
+                ...state,
+                files: newFiles
+            }
         case NEW_LIST:
             if (action.payload.fileId == -1) {
                 let newFiles = state.list_no_file

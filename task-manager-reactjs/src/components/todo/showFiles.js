@@ -14,9 +14,9 @@ export const ShowFiles = ({fileData, sidebar}) => {
                 showFiles.push(
                     <div className="file-block">
                         <div onClick={sidebar.clickFile} className="file" key={index} >
-                            <img src={folder} />
+                            <img className="icon" src={folder} />
                             <h4>{obj.name}</h4>
-                            <div className="add-list"><img className="add-list" src={add} /></div>
+                            <div className="add-list"><img className="add-list icon" src={add} /></div>
                         </div>
                         <ul 
                             className="lists" 
@@ -29,7 +29,7 @@ export const ShowFiles = ({fileData, sidebar}) => {
                                         className="list" 
                                         key={index} 
                                         data-id={item.listId}> 
-                                        <img src={list} />
+                                        <img className="icon" src={list} />
                                         <p>{item.name}</p>
                                     </li>
                                 })}
@@ -43,16 +43,22 @@ export const ShowFiles = ({fileData, sidebar}) => {
                 showFiles.push(
                     <div className="file-block">
                         <div onClick={sidebar.clickFile} className="file" data-id={obj.fileId} key={index} >
-                            <img src={folder} />
+                            <img className="icon" src={folder} />
                             <h4>{obj.name}</h4>
-                            <div className="add-list"><img className="add-list" src={add} /></div>    
+                            <div className="add-list"><img className="add-list icon" src={add} /></div>    
                         </div>
                         <ul 
                             className="lists" 
                             data-open="false" 
                             data-length="1"
                             data-id={obj.fileId}>
-                            <li className="list not-list"><p>Нет списков</p></li>
+                            {obj.fileId == fileNewList &&
+                                    <AddList/>
+                            }
+                            {obj.fileId != fileNewList &&
+                                <li className="list not-list"><p>Нет списков</p></li>
+                            }
+                            
                         </ul>
                     </div>
                 )
