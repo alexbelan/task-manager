@@ -1,52 +1,26 @@
 import { DOMEN_SERVER } from "../../config/const"
 import instance from "../../config/instance"
-import { ADD_TODO, CANCEL_TODO, GET_LIST_TODOE, READY_TODO } from "../type"
+import { GET_LIST, NEW_LIST } from "../type"
 
-export const getTodoesList = id => {
+export const getLists = () => {
     return dispatch => {
-        instance.post(DOMEN_SERVER + "/list/get", {listId: id})
+        instance.post(DOMEN_SERVER + "/list/get")
         .then(res => {
             dispatch({
-                type: GET_LIST_TODOE,
+                type: GET_LIST,
                 payload: res.data
             })
         })
     }
 }
 
-export const readyTodo = (index, todoId) => {
+export const newList = obj => {
     return dispatch => {
-        instance.post(DOMEN_SERVER + "/todo/ready", {todoId: todoId})
-        .then(() => {
-            dispatch({
-                type: READY_TODO,
-                payload: index
-            })
-        })
-    }
-}
-
-export const cancelTodo = (index, todoId) => {
-    return dispatch => {
-        instance.post(DOMEN_SERVER + "/todo/ready", {todoId: todoId})
-        .then(() => {
-            dispatch({
-                type: CANCEL_TODO,
-                payload: index
-            })
-        })
-    }
-}
-
-export const addTodo = (obj) => {
-    console.log("Новое Todo")
-    return dispatch => {
-        instance.post(DOMEN_SERVER + "/todo/add", {list: obj.listId, title: obj.title})
+        instance.post(DOMEN_SERVER + "/list/add", {name: obj.name, file: obj.fileId})
         .then(res => {
-            console.log(res)
             dispatch({
-                type: ADD_TODO,
-                payload: res.data
+                type: NEW_LIST,
+                payload: res.data,
             })
         })
     }

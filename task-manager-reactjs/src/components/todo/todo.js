@@ -5,8 +5,11 @@ import { DOMEN_SERVER, DOMEN_SITE } from "../../config/const";
 import instance from "../../config/instance";
 import {clearUserData, getUserData} from "../../redux/actions/userActions"
 import {getFile} from "../../redux/actions/fileActions"
+import {getLists} from "../../redux/actions/listActions"
+import {getTodoes} from "../../redux/actions/todoActions"
 import Sidebar from "./sidebar";
 import TodoesView from "./TodoesView";
+import EditWindow from "./EditWindow";
 
 class ToDo extends Component {
 
@@ -19,6 +22,8 @@ class ToDo extends Component {
             window.location.href = DOMEN_SITE + "/auth"
         })
         this.props.getFile()
+        this.props.getLists()
+        this.props.getTodoes()
     }
 
     logOut() {
@@ -33,6 +38,9 @@ class ToDo extends Component {
                 <h1>Добро пожаловать {this.props.user.username}</h1>
                 <button onClick={this.logOut.bind(this)}>Log Out</button>
                 <div className="todo-app">
+                    {this.props.edit === true &&
+                        <EditWindow/>
+                    }
                     <Sidebar/>
                     <TodoesView/>
                 </div>
@@ -44,7 +52,8 @@ class ToDo extends Component {
 const mapStateToProps = state => {
     return {
         user: state.user,
-        todo: state.todo
+        todo: state.todo,
+        edit: state.app.editWindow
     }
 }
 
@@ -52,6 +61,8 @@ const mapDispatchToProps = {
     getUserData,
     clearUserData,
     getFile,
+    getLists,
+    getTodoes,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToDo)

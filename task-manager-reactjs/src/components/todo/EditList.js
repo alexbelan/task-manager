@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo } from '../../redux/actions/todoActions';
+import { editList } from '../../redux/actions/fileActions';
+import { editTodo } from '../../redux/actions/listActions';
 
-export default function() {
-    const listId = useSelector(state => state.app.refList);
+export default function({index}) {
+    // const list = useSelector(state => state.file.list[index]);
     const dispatch = useDispatch();
-    const [title, setTitle] = useState('');
+    const [name, setTitle] = useState(list.name);
 
     const changeInputTitle = event => {
         event.persist()
@@ -19,10 +20,8 @@ export default function() {
         event.preventDefault();
         if (title.split(' ').join('') === "") {
             alert("В заголовки одни пробелы")
-        } else if (listId === 0) {
-            alert("Список не выбран")
         } else {
-            dispatch(addTodo({title: title, listId: listId}))
+            dispatch(editList({title: title, todoId: todo.todoId}))
         }
     }
 

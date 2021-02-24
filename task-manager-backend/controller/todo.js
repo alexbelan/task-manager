@@ -48,19 +48,30 @@ class todoController {
             await Todo.findOneAndDelete({todoId: todoId, user: userId});
             return res.json({result: "success"})
         } catch(e) {
-            console.log(e)
             return res.status(400).json({message: 'Delete Todo error'})
+        }
+    }
+
+    async getTodoes(req, res) {
+        try {
+            const token = req.headers.authorization.split(' ')[1]
+            const userId = jwt.verify(token, secret).userId;
+            const todoAll = await Todo.find({user: userId}, "title list ready todoId");
+            return res.json(todoAll)
+        } catch {
+            return res.status(400).json({message: 'All Todoes error'})
         }
     }
 
     async editTodo(req, res) {
         try {
-            const {todoId, newTitle} = req.body;
+            const {todoId, title} = req.body;
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
-            const todo = await Todo.findOneAndUpdate({todoId: todoId, user: userId}, {title: newTitle})
+            await Todo.updateOne({todoId: todoId, user: userId}, {title: title})
+            const todo = await Todo.findOne({todoId: todoId, user: userId}, "title ready todoId list")
             if (todo !== null) {
-                return res.json({result: true})
+                return res.json(todo)
             } else {
                 return res.json({message: 'Edit todo null error', result: false})
             }

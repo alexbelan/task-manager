@@ -5,11 +5,12 @@ import folder from '../../img/folder.svg'
 import listImg from '../../img/list.svg'
 import AddList from './AddList'
 
-export const ShowLists = ({fileData, sidebar}) => {
+export const ShowLists = ({lists, sidebar}) => {
     const fileNewList = useSelector(state => state.app.fileNewList)
+    let dontFileLists = lists.filter(list => list.file === -1)
     let showList = []
-    if (fileData.list_no_file.length !== 0) {
-        fileData.list_no_file.map((obj, index) => {
+    if (dontFileLists.length !== 0) {
+        dontFileLists.map((obj, index) => {
             showList.push(<li className="list" onClick={sidebar.openList} key={index} data-id={obj.listId}><img className="icon" src={listImg} />{obj.name}</li>)
         })
     }

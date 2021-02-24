@@ -5,25 +5,27 @@ import add from '../../img/add.svg'
 import { useSelector } from 'react-redux'
 import AddList from './AddList'
 
-export const ShowFiles = ({fileData, sidebar}) => {
+export const ShowFiles = ({fileData, lists, sidebar}) => {
     let showFiles = []
+    console.log(lists)
     const fileNewList = useSelector(state => state.app.fileNewList)
-    if (fileData.files.length !== 0) {
-         fileData.files.map((obj, index) => {
-            if (obj.list.length !== 0) {
+    if (fileData.length !== 0 && fileData.length !== "error") {
+         fileData.map((objFile, index) => {
+                let fileLists = lists.filter(objList => objList.file === objFile.fileId)
                 showFiles.push(
                     <div className="file-block">
                         <div onClick={sidebar.clickFile} className="file" key={index} >
                             <img className="icon" src={folder} />
-                            <h4>{obj.name}</h4>
+                            <h4>{objFile.name}</h4>
                             <div className="add-list"><img className="add-list icon" src={add} /></div>
                         </div>
-                        <ul 
+                        {fileLists.length !== 0 &&
+                            <ul 
                             className="lists" 
                             data-open="false" 
-                            data-length={obj.list.length}
-                            data-id={obj.fileId}>
-                                {obj.list.map((item, index) => {
+                            data-length={fileLists.length}
+                            data-id={objFile.fileId}>
+                                {fileLists.map((item, index) => {
                                     return <li 
                                         onClick={sidebar.openList} 
                                         className="list" 
@@ -33,36 +35,28 @@ export const ShowFiles = ({fileData, sidebar}) => {
                                         <p>{item.name}</p>
                                     </li>
                                 })}
-                                {obj.fileId == fileNewList &&
+                                {objFile.fileId == fileNewList &&
                                     <AddList/>
                                 }
                         </ul>
-                    </div>
-                )
-            } else {
-                showFiles.push(
-                    <div className="file-block">
-                        <div onClick={sidebar.clickFile} className="file" data-id={obj.fileId} key={index} >
-                            <img className="icon" src={folder} />
-                            <h4>{obj.name}</h4>
-                            <div className="add-list"><img className="add-list icon" src={add} /></div>    
-                        </div>
-                        <ul 
-                            className="lists" 
-                            data-open="false" 
-                            data-length="1"
-                            data-id={obj.fileId}>
-                            {obj.fileId == fileNewList &&
-                                    <AddList/>
-                            }
-                            {obj.fileId != fileNewList &&
-                                <li className="list not-list"><p>Нет списков</p></li>
-                            }
+                        }
+                        {fileLists.length === 0 &&
+                            <ul 
+                                className="lists" 
+                                data-open="false" 
+                                data-length="1"
+                                data-id={objFile.fileId}>
+                                {objFile.fileId == fileNewList &&
+                                        <AddList/>
+                                }
+                                {objFile.fileId != fileNewList &&
+                                    <li className="list not-list"><p>Нет списков</p></li>
+                                }
                             
-                        </ul>
+                            </ul>
+                        }
                     </div>
-                )
-            }
+                 )
         })
     }
 

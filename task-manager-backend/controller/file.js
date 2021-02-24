@@ -69,19 +69,8 @@ class fileController {
         try {
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
-            const fileAll = await Files.find({user: userId}, 'list name fileId');
-            for (let i = 0; i < fileAll.length; ++i) {
-                if (fileAll[i].list !== 0) {
-                    fileAll[i].list = await List.find({listId: {$in: fileAll[i].list}}, "name listId file")
-                }
-            }
-            const listNoFile = await List.find({file: -1, user: userId}, "name listId file")
-            const data = {
-                files: fileAll,
-                list_no_file: listNoFile,
-            }
-        
-            return res.json(data)
+            const file = await Files.find({user: userId}, 'list name fileId');
+            return res.json(file)
         } catch(e) {
             console.log(e)
             return res.status(400).json({message: 'Get File error'})

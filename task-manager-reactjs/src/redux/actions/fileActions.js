@@ -1,6 +1,6 @@
 import { DOMEN_SERVER } from "../../config/const"
 import instance from "../../config/instance"
-import { GET_FILE, GET_FILE_ERROR, NEW_FILE, NEW_LIST } from "../type"
+import { EDIT_LIST, GET_FILE, GET_FILE_ERROR, NEW_FILE, NEW_LIST } from "../type"
 
 export const getFile = () => {
     return dispatch => {
@@ -9,25 +9,6 @@ export const getFile = () => {
             dispatch({
                 type: GET_FILE,
                 payload: res.data 
-            })
-        }).catch(() => {
-            dispatch({
-                type: GET_FILE_ERROR,
-            })
-        })
-    }
-}
-
-export const newList = obj => {
-    return dispatch => {
-        instance.post(DOMEN_SERVER + "/list/add", {name: obj.name, file: obj.fileId})
-        .then(res => {
-            dispatch({
-                type: NEW_LIST,
-                payload: {
-                    fileId: obj.fileId,
-                    list: res.data
-                },
             })
         })
     }
@@ -40,6 +21,22 @@ export const newFile = name => {
             dispatch({
                 type: NEW_FILE,
                 payload: res.data,
+            })
+        })
+    }
+}
+
+export const editList = obj => {
+    return dispatch => {
+        instance.post(DOMEN_SERVER + "/list/edit", {listId: obj.listId, name: obj.name})
+        .then(res => {
+            dispatch({
+                type: EDIT_LIST,
+                payload: {
+                    index: obj.id,
+                    fileId: obj.fileId, 
+                    data: res.data
+                }
             })
         })
     }

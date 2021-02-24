@@ -7,9 +7,9 @@ import { ShowFiles } from './showFiles'
 import { ShowLists } from './showLists'
 
 export default function Sidebar() {
-    const fileData = useSelector(state => state.file)
+    const files = useSelector(state => state.file)
+    const lists = useSelector(state => state.list)
     const dispatch = useDispatch()
-    const [state, setState] = useState(1)
 
     const sidebar = {
         clickFile: (e) => {
@@ -20,9 +20,6 @@ export default function Sidebar() {
                 dispatch(fileNewList(fileLists.getAttribute('data-id')))
                 let listLength = fileLists.getAttribute('data-length')
                 listLength++;
-                // if (listLength >= 0 && fileLists.getAttribute('data-open') === "true") {
-
-                // }
                 fileLists.style.height = 30 * listLength + "px"
                 fileLists.setAttribute('data-open', true)
             } else {
@@ -49,7 +46,6 @@ export default function Sidebar() {
                 const listId = list.getAttribute('data-id')
                 console.log(listId);
                 dispatch(changeList(listId))
-                dispatch(getTodoesList(listId))
             }
         }
     }
@@ -57,10 +53,10 @@ export default function Sidebar() {
     return (
         <div className="sidebar">
             <div className="basic-todo">
-                <ShowLists fileData={fileData} sidebar={sidebar}/>
+                <ShowLists lists={lists} sidebar={sidebar}/>
             </div>
             <div className="other-todo">
-                <ShowFiles fileData={fileData} sidebar={sidebar}/>
+                <ShowFiles fileData={files} lists={lists} sidebar={sidebar}/>
             </div>
             <AddFile/>
         </div>

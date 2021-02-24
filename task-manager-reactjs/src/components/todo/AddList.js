@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import add from '../../img/add.svg'
 import { fileNewList } from '../../redux/actions/appActions';
-import { newList } from '../../redux/actions/fileActions';
+import { newList } from '../../redux/actions/listActions';
 
 export default function() {
     const fileId = useSelector(state => state.app.fileNewList);
@@ -19,7 +19,7 @@ export default function() {
 
     const addList = () => {
         dispatch(newList({name: name, fileId: fileId}))
-        dispatch(fileNewList(-1))
+        dispatch(fileNewList(null))
     }
 
     return (

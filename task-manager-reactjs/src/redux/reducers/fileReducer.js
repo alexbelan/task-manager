@@ -1,9 +1,6 @@
-import { GET_FILE, GET_FILE_ERROR, NEW_FILE, NEW_LIST } from "../type";
+import { GET_FILE, GET_FILE_ERROR, NEW_FILE } from "../type";
 
-const initialFileState = {
-    files: [],
-    list_no_file: []
-}
+const initialFileState = []
 
 export function fileReducer(state = initialFileState, action) {
     switch (action.type) {
@@ -12,32 +9,30 @@ export function fileReducer(state = initialFileState, action) {
         case GET_FILE_ERROR:
             return "error"
         case NEW_FILE:
-            let newFiles = state.files
-            newFiles.push(action.payload)
-            return {
+            return [
                 ...state,
-                files: newFiles
-            }
-        case NEW_LIST:
-            if (action.payload.fileId == -1) {
-                let newFiles = state.list_no_file
-                state.list_no_file.push(action.payload.list)
-                return {
-                    ...state,
-                    list_no_file: newFiles
-                }
-            } else {
-                let newFiles = state.files
-                newFiles.find(file => {
-                    if (file.fileId == action.payload.fileId) {
-                        file.list.push(action.payload.list)
-                    }
-                })
-                return {
-                    ...state,
-                    files: newFiles
-                }
-            }
+                action.payload
+            ]
+        // case EDIT_TODO: 
+        //     if (action.payload.fileId == -1) {
+        //         let newFiles = state.list_no_file
+        //         state.list_no_file[action.payload.index] = action.payload.data
+        //         return {
+        //             ...state,
+        //             list_no_file: newFiles
+        //         }
+        //     } else {
+        //         let newFiles = state.files
+        //         newFiles.find(file => {
+        //             if (file.fileId == action.payload.fileId) {
+        //                 file.list[action.payload.index] = action.payload.data
+        //             }
+        //         })
+        //         return {
+        //             ...state,
+        //             files: newFiles
+        //         }
+        //     }
         default:
             return state;
     }

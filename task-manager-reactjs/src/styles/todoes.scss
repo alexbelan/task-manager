@@ -1,3 +1,30 @@
-// .todoesList {
-    
-// }
+
+.todo {
+    display: flex;
+    justify-content: space-between;
+    img {
+        width: 16px;
+        cursor: pointer;
+    }
+}
+
+.edit-window {
+    background-color: white;
+    border: black 1px solid;
+    position: fixed;
+    margin:auto;
+    width: 500px;
+    height: 100px;
+    margin: 5% auto; /* Will not center vertically and won't work in IE6/7. */
+    left: 0;
+    right: 0;
+    .header {
+        .icon {
+            cursor: pointer;
+            img {
+                width: 20px;
+            }
+        }
+    }
+}
+

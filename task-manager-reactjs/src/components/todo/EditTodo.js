@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo } from '../../redux/actions/todoActions';
+import { editTodo } from '../../redux/actions/todoActions';
 
-export default function() {
-    const listId = useSelector(state => state.app.refList);
+export default function({index}) {
+    const id = useSelector(state => state.todo.findIndex(el => el.todoId === +index));
+    const todo = useSelector(state => state.todo.filter(el => el.todoId === +index))[0];
     const dispatch = useDispatch();
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState(todo.title);
 
     const changeInputTitle = event => {
         event.persist()
@@ -19,10 +20,8 @@ export default function() {
         event.preventDefault();
         if (title.split(' ').join('') === "") {
             alert("В заголовки одни пробелы")
-        } else if (listId === 0) {
-            alert("Список не выбран")
         } else {
-            dispatch(addTodo({title: title, listId: listId}))
+            dispatch(editTodo({title: title, todoId: todo.todoId, id: id}))
         }
     }
 
