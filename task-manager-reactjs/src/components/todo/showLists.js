@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import add from '../../img/add.svg'
 import folder from '../../img/folder.svg'
 import listImg from '../../img/list.svg'
+import editIcon from '../../img/edit.svg';
 import AddList from './AddList'
 
 export const ShowLists = ({lists, sidebar}) => {
@@ -11,7 +12,11 @@ export const ShowLists = ({lists, sidebar}) => {
     let showList = []
     if (dontFileLists.length !== 0) {
         dontFileLists.map((obj, index) => {
-            showList.push(<li className="list" onClick={sidebar.openList} key={index} data-id={obj.listId}><img className="icon" src={listImg} />{obj.name}</li>)
+            showList.push(<li className="list" onClick={sidebar.openList} key={index} data-id={obj.listId}>
+                <img className="icon" src={listImg} />
+                <p>{obj.name}</p>
+                <img className="edit-list icon" src={editIcon} />
+                </li>)
         })
     }
 

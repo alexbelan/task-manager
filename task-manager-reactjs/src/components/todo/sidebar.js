@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { changeList, fileNewList } from '../../redux/actions/appActions'
+import { addDataEditWindow, changeList, fileNewList, openEditWindow } from '../../redux/actions/appActions'
 import { getTodoesList } from '../../redux/actions/listActions'
 import AddFile from './AddFile'
 import { ShowFiles } from './showFiles'
@@ -15,7 +15,6 @@ export default function Sidebar() {
         clickFile: (e) => {
             const target = e.target.className.split(' ')[0];
             const fileLists = e.currentTarget.nextElementSibling
-            console.log(target)
             if (target === "add-list") {
                 dispatch(fileNewList(fileLists.getAttribute('data-id')))
                 let listLength = fileLists.getAttribute('data-length')
@@ -25,14 +24,12 @@ export default function Sidebar() {
             } else {
                 if (fileLists.getAttribute('data-open') === "false") {
                     const listLength = fileLists.getAttribute('data-length')
-                    console.log(listLength)
                     if (listLength === 0) {
                         fileLists.style.height = 30 + "px"
                     } else if (listLength > 0) {
                         fileLists.style.height = (30 * listLength) + "px"
                     }
                     fileLists.setAttribute('data-open', true)
-                    console.log(listLength)
                 } else {
                     fileLists.style.height = 0
                     fileLists.setAttribute('data-open', false)
@@ -41,11 +38,16 @@ export default function Sidebar() {
         },
         openList: (e) => {
             const list = e.currentTarget
-            console.log(list)
-            if (list !== undefined) {
+            const target = e.target
+            if (target.className.split(' ')[0] === 'edit-list') {
                 const listId = list.getAttribute('data-id')
-                console.log(listId);
-                dispatch(changeList(listId))
+                dispatch(addDataEditWindow({type: "list", id: listId}))
+                dispatch(openEditWindow())
+            } else {
+                if (list !== undefined) {
+                    const listId = list.getAttribute('data-id')
+                    dispatch(changeList(listId))
+                }
             }
         }
     }

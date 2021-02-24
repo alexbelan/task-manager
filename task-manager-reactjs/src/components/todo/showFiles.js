@@ -2,6 +2,7 @@ import React from 'react'
 import folder from '../../img/folder.svg'
 import list from '../../img/list.svg'
 import add from '../../img/add.svg'
+import editIcon from '../../img/edit.svg';
 import { useSelector } from 'react-redux'
 import AddList from './AddList'
 
@@ -33,6 +34,7 @@ export const ShowFiles = ({fileData, lists, sidebar}) => {
                                         data-id={item.listId}> 
                                         <img className="icon" src={list} />
                                         <p>{item.name}</p>
+                                        <img className="icon" src={editIcon} />
                                     </li>
                                 })}
                                 {objFile.fileId == fileNewList &&

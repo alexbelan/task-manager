@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import closeIcon from '../../img/close.svg'
 import { closeEditWindow } from '../../redux/actions/appActions'
+import EditList from './EditList'
 import EditTodo from './EditTodo'
 
 export default function () {
@@ -15,7 +16,9 @@ export default function () {
 
     const viewWindow = () => {
         if (editData.type === "todo") {
-            return <EditTodo index={editData.id}/>
+            return <EditTodo index={editData.id} />
+        } else if (editData.type === "list") {
+            return <EditList index={editData.id} />
         }
     }
 
@@ -25,7 +28,6 @@ export default function () {
                 <div className="icon">
                     <img onClick={closeWindow} src={closeIcon} />
                 </div>
-
             </div>
             <div>
                 {viewWindow()}

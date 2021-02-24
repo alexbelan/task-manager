@@ -1,33 +1,33 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { editList } from '../../redux/actions/fileActions';
-import { editTodo } from '../../redux/actions/listActions';
+import { editList } from '../../redux/actions/listActions';
 
 export default function({index}) {
-    // const list = useSelector(state => state.file.list[index]);
+    const id = useSelector(state => state.list.findIndex(el => el.listId === +index));
+    const list = useSelector(state => state.list.filter(el => el.listId === +index))[0];
     const dispatch = useDispatch();
-    const [name, setTitle] = useState(list.name);
+    const [name, setName] = useState(list.name);
 
-    const changeInputTitle = event => {
+    const changeInputName = event => {
         event.persist()
 
-        setTitle(() => {
+        setName(() => {
             return event.target.value
         })
     }
 
-    const submitTodo = function (event) {
+    const submitList = function (event) {
         event.preventDefault();
-        if (title.split(' ').join('') === "") {
+        if (name.split(' ').join('') === "") {
             alert("В заголовки одни пробелы")
         } else {
-            dispatch(editList({title: title, todoId: todo.todoId}))
+            dispatch(editList({name: name, listId: list.listId, id: id}))
         }
     }
 
     return (
-        <form onSubmit={submitTodo}>
-            <input type="text" value={title} onChange={changeInputTitle}/>
+        <form onSubmit={submitList}>
+            <input type="text" value={name} onChange={changeInputName}/>
             <input type="submit"/>
         </form>
     )

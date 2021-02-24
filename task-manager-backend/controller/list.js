@@ -72,16 +72,18 @@ class listController {
 
     async editList(req, res) {
         try {
-            const {listId, newName} = req.body;
+            const {listId, name} = req.body;
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
-            const list = await List.findOneAndUpdate({listId: listId, user: userId}, {name: newName})
+            await List.updateOne({listId: listId, user: userId}, {name: name})
+            const list = await List.findOne({listId: listId, user: userId}, "file name listId")
             if (list !== null) {
-                return res.json({result: true})
+                return res.json(list)
             } else {
                 return res.json({message: 'Edit List null error', result: false})
             }
         } catch(e) {
+            console.log(e)
             return res.status(400).json({message: 'Edit List error'})
         }
     }

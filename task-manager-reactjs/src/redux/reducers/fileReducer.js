@@ -13,26 +13,6 @@ export function fileReducer(state = initialFileState, action) {
                 ...state,
                 action.payload
             ]
-        // case EDIT_TODO: 
-        //     if (action.payload.fileId == -1) {
-        //         let newFiles = state.list_no_file
-        //         state.list_no_file[action.payload.index] = action.payload.data
-        //         return {
-        //             ...state,
-        //             list_no_file: newFiles
-        //         }
-        //     } else {
-        //         let newFiles = state.files
-        //         newFiles.find(file => {
-        //             if (file.fileId == action.payload.fileId) {
-        //                 file.list[action.payload.index] = action.payload.data
-        //             }
-        //         })
-        //         return {
-        //             ...state,
-        //             files: newFiles
-        //         }
-        //     }
         default:
             return state;
     }
