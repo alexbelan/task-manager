@@ -8,7 +8,6 @@ import AddList from './AddList'
 
 export const ShowFiles = ({fileData, lists, sidebar}) => {
     let showFiles = []
-    console.log(lists)
     const fileNewList = useSelector(state => state.app.fileNewList)
     if (fileData.length !== 0 && fileData.length !== "error") {
          fileData.map((objFile, index) => {
@@ -18,6 +17,7 @@ export const ShowFiles = ({fileData, lists, sidebar}) => {
                         <div onClick={sidebar.clickFile} className="file" key={index} >
                             <img className="icon" src={folder} />
                             <h4>{objFile.name}</h4>
+                            <div className="edit-file"><img className="edit-file icon" src={editIcon} /></div>
                             <div className="add-list"><img className="add-list icon" src={add} /></div>
                         </div>
                         {fileLists.length !== 0 &&

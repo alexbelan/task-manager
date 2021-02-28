@@ -17,3 +17,4 @@ export const NEW_LIST = "TODO/NEW_LIST";
 export const NEW_FILE = "TODO/NEW_FILE";
 export const EDIT_TODO = "TODO/EDIT_TODO";
 export const EDIT_LIST = "TODO/EDIT_LIST";
+export const EDIT_FILE = "TODO/EDIT_FILE";

@@ -21,6 +21,10 @@ export default function Sidebar() {
                 listLength++;
                 fileLists.style.height = 30 * listLength + "px"
                 fileLists.setAttribute('data-open', true)
+            } else if (target === "edit-file") {
+                const fileId = fileLists.getAttribute('data-id')
+                dispatch(addDataEditWindow({type: "file", id: fileId}))
+                dispatch(openEditWindow())
             } else {
                 if (fileLists.getAttribute('data-open') === "false") {
                     const listLength = fileLists.getAttribute('data-length')

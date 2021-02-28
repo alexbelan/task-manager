@@ -79,12 +79,13 @@ class fileController {
 
     async editFile(req, res) {
         try {
-            const {fileId, newName} = req.body;
+            const {fileId, name} = req.body;
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
-            const file = await Files.findOneAndUpdate({fileId: fileId, user: userId}, {name: newName})
+            await Files.updateOne({fileId: fileId, user: userId}, {name: name})
+            const file = await Files.findOne({fileId: fileId, user: userId})
             if (file !== null) {
-                return res.json({result: true})
+                return res.json(file)
             } else {
                 return res.json({message: 'Edit File null error', result: false})
             }

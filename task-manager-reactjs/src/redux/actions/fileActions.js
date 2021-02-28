@@ -1,6 +1,6 @@
 import { DOMEN_SERVER } from "../../config/const"
 import instance from "../../config/instance"
-import { EDIT_LIST, GET_FILE, GET_FILE_ERROR, NEW_FILE, NEW_LIST } from "../type"
+import { EDIT_FILE, GET_FILE, NEW_FILE } from "../type"
 
 export const getFile = () => {
     return dispatch => {
@@ -26,15 +26,15 @@ export const newFile = name => {
     }
 }
 
-export const editList = obj => {
+export const editFile = obj => {
     return dispatch => {
-        instance.post(DOMEN_SERVER + "/list/edit", {listId: obj.listId, name: obj.name})
+        instance.post(DOMEN_SERVER + "/file/edit", {fileId: obj.fileId, name: obj.name})
         .then(res => {
+            console.log(res.data)
             dispatch({
-                type: EDIT_LIST,
+                type: EDIT_FILE,
                 payload: {
                     index: obj.id,
-                    fileId: obj.fileId, 
                     data: res.data
                 }
             })

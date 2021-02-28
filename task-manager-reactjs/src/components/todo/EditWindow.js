@@ -4,6 +4,7 @@ import closeIcon from '../../img/close.svg'
 import { closeEditWindow } from '../../redux/actions/appActions'
 import EditList from './EditList'
 import EditTodo from './EditTodo'
+import EditFile from './EditFile'
 
 export default function () {
     const editData = useSelector(state => state.app.editData)
@@ -19,6 +20,8 @@ export default function () {
             return <EditTodo index={editData.id} />
         } else if (editData.type === "list") {
             return <EditList index={editData.id} />
+        } else if (editData.type === "file") {
+            return <EditFile index={editData.id} />
         }
     }
 
