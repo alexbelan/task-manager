@@ -1,6 +1,6 @@
 import { DOMEN_SERVER } from "../../config/const"
 import instance from "../../config/instance"
-import { EDIT_LIST, GET_LIST, NEW_LIST } from "../type"
+import { DELETE_LIST, EDIT_LIST, GET_LIST, NEW_LIST } from "../type"
 
 export const getLists = () => {
     return dispatch => {
@@ -41,3 +41,18 @@ export const editList = obj => {
         })
     }
 }
+
+export const deleteList = obj => {
+    return dispatch => {
+        instance.post(DOMEN_SERVER + "/list/delete", {listId: obj.listId})
+        .then(res => {
+            if (res.data.result === true) {
+                dispatch({
+                    type: DELETE_LIST,
+                    payload: obj.id
+                })
+            }
+        })
+    }
+}
+

@@ -1,4 +1,4 @@
-import { GET_FILE, GET_FILE_ERROR, NEW_FILE, EDIT_FILE } from "../type";
+import { GET_FILE, GET_FILE_ERROR, NEW_FILE, EDIT_FILE, DELETE_FILE } from "../type";
 
 const initialFileState = []
 
@@ -18,6 +18,11 @@ export function fileReducer(state = initialFileState, action) {
             return [
                 ...state,
             ]  
+        case DELETE_FILE:
+            state.splice(action.payload, 1);
+            return [
+                ...state,
+            ]
         default:
             return state;
     }

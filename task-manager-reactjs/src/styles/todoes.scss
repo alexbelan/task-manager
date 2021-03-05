@@ -2,6 +2,10 @@
 .todo {
     display: flex;
     justify-content: space-between;
+    .control {
+        display: flex;
+        width: 32px;
+    }
     img {
         width: 16px;
         cursor: pointer;

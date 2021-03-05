@@ -1,15 +1,28 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { addDataEditWindow, changeList, fileNewList, openEditWindow } from '../../redux/actions/appActions'
-import { getTodoesList } from '../../redux/actions/listActions'
+import { deleteList, getTodoesList } from '../../redux/actions/listActions'
+import { deleteTodo, deleteTodoOnFrontend } from '../../redux/actions/todoActions'
 import AddFile from './AddFile'
 import { ShowFiles } from './showFiles'
 import { ShowLists } from './showLists'
 
 export default function Sidebar() {
-    const files = useSelector(state => state.file)
-    const lists = useSelector(state => state.list)
+    const files = useSelector(state => state.file);
+    const lists = useSelector(state => state.list);
+    const todoes = useSelector(state => state.todo);
+    const refList = useSelector(state => state.app.refList);
     const dispatch = useDispatch()
+
+    const deleteTodoes = (listId) => {
+        const todoesList = lists[listId].todo;
+        if (todoesList.length !== 0) {
+            for (let i = 0; i < todoesList.length; ++i) {
+                const id = todoes.findIndex(el => el.todoId === todoesList[i])
+                dispatch(deleteTodoOnFrontend(id))
+            }
+        }
+    }
 
     const sidebar = {
         clickFile: (e) => {
@@ -24,6 +37,10 @@ export default function Sidebar() {
             } else if (target === "edit-file") {
                 const fileId = fileLists.getAttribute('data-id')
                 dispatch(addDataEditWindow({type: "file", id: fileId}))
+                dispatch(openEditWindow())
+            } else if (target === "delete-file") {
+                const fileId = fileLists.getAttribute('data-id')
+                dispatch(addDataEditWindow({type: "deleteFile", id: fileId}))
                 dispatch(openEditWindow())
             } else {
                 if (fileLists.getAttribute('data-open') === "false") {
@@ -47,6 +64,14 @@ export default function Sidebar() {
                 const listId = list.getAttribute('data-id')
                 dispatch(addDataEditWindow({type: "list", id: listId}))
                 dispatch(openEditWindow())
+            } else if (target.className.split(' ')[0] === 'delete-list') {
+                const listId = list.getAttribute('data-id')
+                const id = lists.findIndex(el => el.listId === +listId)
+                if (refList === listId) {
+                    dispatch(changeList(-1))
+                }
+                deleteTodoes(id);
+                dispatch(deleteList({id: id, listId: listId}))
             } else {
                 if (list !== undefined) {
                     const listId = list.getAttribute('data-id')

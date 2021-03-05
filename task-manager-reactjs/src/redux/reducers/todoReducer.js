@@ -1,4 +1,4 @@
-import { ADD_TODO, CANCEL_TODO, EDIT_TODO, GET_TODO, READY_TODO } from "../type";
+import { ADD_TODO, CANCEL_TODO, DELETE_TODO, EDIT_TODO, GET_TODO, READY_TODO } from "../type";
 
 const initialTodoState = []
 
@@ -24,6 +24,11 @@ export function todoReducer(state = initialTodoState, action) {
             ]
         case EDIT_TODO:
             state[action.payload.index] = action.payload.data
+            return [
+                ...state,
+            ]
+        case DELETE_TODO:
+            state.splice(action.payload, 1);
             return [
                 ...state,
             ]

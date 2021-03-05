@@ -3,6 +3,7 @@ import folder from '../../img/folder.svg'
 import list from '../../img/list.svg'
 import add from '../../img/add.svg'
 import editIcon from '../../img/edit.svg';
+import trashIcon from '../../img/trash.svg';
 import { useSelector } from 'react-redux'
 import AddList from './AddList'
 
@@ -18,6 +19,9 @@ export const ShowFiles = ({fileData, lists, sidebar}) => {
                             <img className="icon" src={folder} />
                             <h4>{objFile.name}</h4>
                             <div className="edit-file"><img className="edit-file icon" src={editIcon} /></div>
+                            <div className="delete-file">
+                                <img className="delete-file icon" src={trashIcon} />
+                            </div>
                             <div className="add-list"><img className="add-list icon" src={add} /></div>
                         </div>
                         {fileLists.length !== 0 &&
@@ -34,7 +38,10 @@ export const ShowFiles = ({fileData, lists, sidebar}) => {
                                         data-id={item.listId}> 
                                         <img className="icon" src={list} />
                                         <p>{item.name}</p>
-                                        <img className="icon" src={editIcon} />
+                                        <img className="edit-list icon" src={editIcon} />
+                                        <div className="delete-list">
+                                            <img className="delete-list icon" src={trashIcon} />
+                                        </div>
                                     </li>
                                 })}
                                 {objFile.fileId == fileNewList &&

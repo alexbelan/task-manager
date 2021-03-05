@@ -5,6 +5,7 @@ import { closeEditWindow } from '../../redux/actions/appActions'
 import EditList from './EditList'
 import EditTodo from './EditTodo'
 import EditFile from './EditFile'
+import DeleteFile from './DeleteFile'
 
 export default function () {
     const editData = useSelector(state => state.app.editData)
@@ -22,6 +23,8 @@ export default function () {
             return <EditList index={editData.id} />
         } else if (editData.type === "file") {
             return <EditFile index={editData.id} />
+        } else if (editData.type === "deleteFile") {
+            return <DeleteFile index={editData.id} />
         }
     }
 
