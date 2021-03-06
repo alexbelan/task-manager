@@ -23,7 +23,9 @@ require('./middleware/authJwtMiddleware')(passport)
 
 async function start() {
     try {
-        await mongoose.connect(`mongodb+srv://${config.userdb}:${config.passwordb}@cluster0.mnin2.mongodb.net/${config.namedb}`, {
+        // const sittingConect = `mongodb+srv://${config.userdb}:${config.passwordb}@cluster0.mnin2.mongodb.net/${config.namedb}`;
+        const sittingConect = `mongodb://localhost:27017/todo`;
+        await mongoose.connect(sittingConect, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,

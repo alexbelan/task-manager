@@ -46,7 +46,7 @@ class todoController {
             listData.todo.splice(pos, 1)
             await List.findOneAndUpdate({listId: todo.list}, {todo: listData.todo})
             await Todo.findOneAndDelete({todoId: todoId, user: userId});
-            return res.json({result: "success"})
+            return res.json({result: true})
         } catch(e) {
             return res.status(400).json({message: 'Delete Todo error'})
         }

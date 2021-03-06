@@ -53,7 +53,7 @@ class listController {
             }
             await Todo.deleteMany({todoId: {$in: list.todo}})
             await List.findOneAndDelete({listId: listId, user: userId})
-            return res.json({result: "success"})
+            return res.json({result: true})
         } catch {
             return res.status(400).json({message: 'Delete List error'})
         }
@@ -63,7 +63,7 @@ class listController {
         try {
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
-            const lists = await List.find({user: userId}, "file name listId")   
+            const lists = await List.find({user: userId}, "file name listId todo")   
             return res.json(lists)
         } catch(e) {
             return res.status(400).json({message: 'Get Lists error'})

@@ -43,22 +43,21 @@ class fileController {
 
     async deleteFile(req, res) {
         try {
-            const {fileId, deleteList} = req.body;
+            const {fileId, deleteLists} = req.body;
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
-            const file = await Files.findOne({fileId: fileId, user: userId}, "list")
-            console.log(file.list)
+            const file = await Files.findOne({fileId: fileId, user: userId}, "list");
             if (file.list.length !== 0) {
                 for (let i = 0; i < file.list.length; ++i) {
-                    if (deleteList === false) {
+                    if (deleteLists === false) {
                         await List.findOneAndUpdate({listId: file.list[i]}, {file: -1})
                     } else {
                         daleteList(file.list[i])
                     }
                 }
             }
-            const resDelete = await Files.findOneAndDelete({fileId: fileId, user: userId})
-            return res.json(resDelete)
+            await Files.findOneAndDelete({fileId: fileId, user: userId})
+            return res.json({result: true})
         } catch(e) {
             console.log(e)
             return res.status(400).json({message: 'Delete File error'})
