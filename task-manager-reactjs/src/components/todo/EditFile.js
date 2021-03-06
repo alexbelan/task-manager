@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { addDataEditWindow, closeEditWindow } from '../../redux/actions/appActions';
 import { editFile } from '../../redux/actions/fileActions';
 
 export default function({index}) {
@@ -22,6 +23,8 @@ export default function({index}) {
             alert("В заголовки одни пробелы")
         } else {
             dispatch(editFile({name: name, fileId: file.fileId, id: id}))
+            dispatch(closeEditWindow())
+            dispatch(addDataEditWindow({type: "", id: -1}))
         }
     }
 

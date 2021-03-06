@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { addDataEditWindow, closeEditWindow } from '../../redux/actions/appActions';
 import { editList } from '../../redux/actions/listActions';
 
 export default function({index}) {
@@ -22,6 +23,8 @@ export default function({index}) {
             alert("В заголовки одни пробелы")
         } else {
             dispatch(editList({name: name, listId: list.listId, id: id}))
+            dispatch(closeEditWindow())
+            dispatch(addDataEditWindow({type: "", id: -1}))
         }
     }
 

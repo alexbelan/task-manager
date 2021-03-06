@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFile } from '../../redux/actions/fileActions';
+import { addDataEditWindow, closeEditWindow } from '../../redux/actions/appActions';
 import { deleteTodoOnFrontend } from '../../redux/actions/todoActions';
 
 export default function({index}) {
@@ -30,6 +31,8 @@ export default function({index}) {
         } else if (dataBtn === "no") {
             dispatch(deleteFile({id: id, fileId: file.fileId, deleteLists: false}))
         }
+        dispatch(closeEditWindow())
+        dispatch(addDataEditWindow({type: "", id: -1}))
     }
 
     return (
