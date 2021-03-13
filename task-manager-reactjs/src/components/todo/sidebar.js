@@ -29,11 +29,12 @@ export default function Sidebar() {
             const target = e.target.className.split(' ')[0];
             const fileLists = e.currentTarget.nextElementSibling
             if (target === "add-list") {
-                dispatch(fileNewList(fileLists.getAttribute('data-id')))
-                let listLength = fileLists.getAttribute('data-length')
-                listLength++;
-                fileLists.style.height = 30 * listLength + "px"
-                fileLists.setAttribute('data-open', true)
+                dispatch(addDataEditWindow({type: "addList", id: fileLists.getAttribute('data-id')}))
+                dispatch(openEditWindow())
+                // let listLength = fileLists.getAttribute('data-length')
+                // listLength++;
+                // fileLists.style.height = 30 * listLength + "px"
+                // fileLists.setAttribute('data-open', true)
             } else if (target === "edit-file") {
                 const fileId = fileLists.getAttribute('data-id')
                 dispatch(addDataEditWindow({type: "file", id: fileId}))

@@ -7,7 +7,7 @@ const Todo = require('../models/Todo')
 class listController {
     async addList(req, res) {
         try {
-            const {name} = req.body
+            const {data} = req.body
             const file = (req.body.file && req.body.file >= 0) ? req.body.file : false
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
@@ -22,13 +22,22 @@ class listController {
                     if (listsFile === null) {
                         return res.status(400).json({message: 'List error file'})
                     } else {
-                        list = new List({name: name, user: userId, file: file})
+                        list = new List({
+                            name: data.name,
+                            description: data.description, 
+                            user: userId, 
+                            file: file
+                        })
                         await list.save()
                         await File.findOneAndUpdate({fileId: file}, {list: listsFile.list.concat([list.listId])})
                         return res.json(list)
                     }
                 } else {
-                    list = new List({name: name, user: userId})
+                    list = new List({
+                        name: data.name,
+                        description: data.description, 
+                        user: userId
+                    })
                     await list.save()
                     return res.json(list)
                 }
@@ -63,7 +72,7 @@ class listController {
         try {
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
-            const lists = await List.find({user: userId}, "file name listId todo")   
+            const lists = await List.find({user: userId}, "file name listId description users todo")   
             return res.json(lists)
         } catch(e) {
             return res.status(400).json({message: 'Get Lists error'})
@@ -72,11 +81,11 @@ class listController {
 
     async editList(req, res) {
         try {
-            const {listId, name} = req.body;
+            const {listId, data} = req.body;
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
-            await List.updateOne({listId: listId, user: userId}, {name: name})
-            const list = await List.findOne({listId: listId, user: userId}, "file name listId")
+            await List.updateOne({listId: listId, user: userId}, data)
+            const list = await List.findOne({listId: listId, user: userId}, "file name listId description users todo")
             if (list !== null) {
                 return res.json(list)
             } else {

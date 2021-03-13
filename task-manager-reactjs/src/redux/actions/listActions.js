@@ -16,7 +16,7 @@ export const getLists = () => {
 
 export const newList = obj => {
     return dispatch => {
-        instance.post(DOMEN_SERVER + "/list/add", {name: obj.name, file: obj.fileId})
+        instance.post(DOMEN_SERVER + "/list/add", {data: obj.data, file: obj.fileId})
         .then(res => {
             dispatch({
                 type: NEW_LIST,
@@ -28,7 +28,7 @@ export const newList = obj => {
 
 export const editList = obj => {
     return dispatch => {
-        instance.post(DOMEN_SERVER + "/list/edit", {listId: obj.listId, name: obj.name})
+        instance.post(DOMEN_SERVER + "/list/edit", {listId: obj.listId, data: obj.data})
         .then(res => {
             console.log(res.data)
             dispatch({

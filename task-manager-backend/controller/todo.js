@@ -6,7 +6,7 @@ const Todo = require('../models/Todo')
 class todoController {
     async addTodo(req, res) {
         try {
-            const {title} = req.body;
+            const {data} = req.body;
             const list = (req.body.list && req.body.list >= 0) ? req.body.list : false
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
@@ -22,10 +22,12 @@ class todoController {
                     if (todoList === null) {
                         return res.status(400).json({message: 'Todo error is not list'})
                     } else {
-                        const todo = new Todo({title: title, user: userId, list: list})
+                        data['list'] = list;
+                        data['user'] = userId;
+                        const todo = new Todo(data)
                         await todo.save()
                         await List.findOneAndUpdate({listId: list}, {todo: todoList.todo.concat([todo.todoId])})
-                        return res.json(todo)
+                        return res.json(todo)   
                     }
                 }
             })
@@ -56,7 +58,7 @@ class todoController {
         try {
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
-            const todoAll = await Todo.find({user: userId}, "title list ready todoId");
+            const todoAll = await Todo.find({user: userId}, "title list ready todoId description date time deysWeek users");
             return res.json(todoAll)
         } catch {
             return res.status(400).json({message: 'All Todoes error'})
@@ -65,11 +67,11 @@ class todoController {
 
     async editTodo(req, res) {
         try {
-            const {todoId, title} = req.body;
+            const {todoId, data} = req.body;
             const token = req.headers.authorization.split(' ')[1]
             const userId = jwt.verify(token, secret).userId;
-            await Todo.updateOne({todoId: todoId, user: userId}, {title: title})
-            const todo = await Todo.findOne({todoId: todoId, user: userId}, "title ready todoId list")
+            await Todo.updateOne({todoId: todoId, user: userId}, data)
+            const todo = await Todo.findOne({todoId: todoId, user: userId}, "title list ready todoId description date time deysWeek users")
             if (todo !== null) {
                 return res.json(todo)
             } else {

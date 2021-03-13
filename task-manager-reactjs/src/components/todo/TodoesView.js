@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addDataEditWindow, openEditWindow } from '../../redux/actions/appActions'
 import { readyTodo, cancelTodo, deleteTodo } from '../../redux/actions/todoActions'
-import AddTodo from './AddTodo'
+import HeaderList from './HeaderList'
 import TodoViewNotReady from './TodoViewNotReady'
 import TodoViewReady from './TodoViewReady'
 
@@ -38,7 +38,7 @@ export default function () {
     return(
         <div className="todoes">
             <div className="new-todo">
-                <AddTodo/>
+                <HeaderList/>
             </div>
             <div className="todoes-list">
                 <TodoViewNotReady todoes={todoes} reflist={refList} readyTodoClick={readyTodoClick}/>

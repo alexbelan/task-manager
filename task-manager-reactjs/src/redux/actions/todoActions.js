@@ -40,7 +40,7 @@ export const cancelTodo = (index, todoId) => {
 
 export const addTodo = (obj) => {
     return dispatch => {
-        instance.post(DOMEN_SERVER + "/todo/add", {list: obj.listId, title: obj.title})
+        instance.post(DOMEN_SERVER + "/todo/add", {list: obj.listId, data: obj.data})
         .then(res => {
             dispatch({
                 type: ADD_TODO,
@@ -52,7 +52,7 @@ export const addTodo = (obj) => {
 
 export const editTodo = (obj) => {
     return dispatch => {
-        instance.post(DOMEN_SERVER + "/todo/edit", {todoId: obj.todoId, title: obj.title})
+        instance.post(DOMEN_SERVER + "/todo/edit", {todoId: obj.todoId, data: obj.data})
         .then(res => {
             dispatch({
                 type: EDIT_TODO,

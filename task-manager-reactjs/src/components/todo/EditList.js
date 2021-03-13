@@ -7,22 +7,27 @@ export default function({index}) {
     const id = useSelector(state => state.list.findIndex(el => el.listId === +index));
     const list = useSelector(state => state.list.filter(el => el.listId === +index))[0];
     const dispatch = useDispatch();
-    const [name, setName] = useState(list.name);
+    const [data, setData] = useState({
+        name: list.name,
+        description: list.description,
+    });
 
-    const changeInputName = event => {
+    const changeInputData = event => {
         event.persist()
-
-        setName(() => {
-            return event.target.value
+        setData(prev => {
+            return {
+                ...prev,
+                [event.target.name]: event.target.value
+            }
         })
     }
 
     const submitList = function (event) {
         event.preventDefault();
-        if (name.split(' ').join('') === "") {
+        if (data.name.split(' ').join('') === "") {
             alert("В заголовки одни пробелы")
         } else {
-            dispatch(editList({name: name, listId: list.listId, id: id}))
+            dispatch(editList({data: data, listId: list.listId, id: id}))
             dispatch(closeEditWindow())
             dispatch(addDataEditWindow({type: "", id: -1}))
         }
@@ -30,7 +35,20 @@ export default function({index}) {
 
     return (
         <form onSubmit={submitList}>
-            <input type="text" value={name} onChange={changeInputName}/>
+            <div>
+            <label for="nameList">
+                <h5>Name:</h5>
+            </label>
+            <input id="nameList" type="text" name="name" value={data.name} onChange={changeInputData} />
+            </div>
+            <div>
+            <label for="descriptionList">
+                <h5>Description:</h5>
+            </label>
+            <textarea id="descriptionList" name="description" value={data.description} onChange={changeInputData}>
+
+            </textarea>
+            </div>
             <input type="submit"/>
         </form>
     )

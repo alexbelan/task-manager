@@ -3,17 +3,17 @@ import { useDispatch } from 'react-redux';
 import add from '../../img/add.svg'
 import { openEditWindow, addDataEditWindow } from '../../redux/actions/appActions';
 
-export default function() {
+export default function({listId}) {
     const dispatch = useDispatch();
 
-    const addFile = () => {
+    const addTodo = () => {
         dispatch(openEditWindow())
-        dispatch(addDataEditWindow({type: "addFile", id: -1}))
+        dispatch(addDataEditWindow({type: "addTodo", id: listId}))
     }
 
     return (
-        <div onClick={addFile} className="file-block">
-            <div className="file"><img src={add} className="icon"/><h4>Add file</h4></div>
+        <div onClick={addTodo} className="btn">
+            <img src={add} className="icon"/><h4>Add todo</h4>
         </div>
     )
 }

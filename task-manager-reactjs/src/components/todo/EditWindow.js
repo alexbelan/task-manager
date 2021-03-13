@@ -6,6 +6,9 @@ import EditList from './EditList'
 import EditTodo from './EditTodo'
 import EditFile from './EditFile'
 import DeleteFile from './DeleteFile'
+import AddFileEdit from './AddFileEdit'
+import AddList from './AddList'
+import AddTodo from './AddTodo'
 
 export default function () {
     const editData = useSelector(state => state.app.editData)
@@ -25,8 +28,14 @@ export default function () {
             return <EditFile index={editData.id} />
         } else if (editData.type === "deleteFile") {
             return <DeleteFile index={editData.id} />
+        } else if (editData.type === "addFile") {
+            return <AddFileEdit/>
+        } else if (editData.type === "addList") {
+            return <AddList fileId={editData.id} />
+        } else if (editData.type === "addTodo") {
+            return <AddTodo listId={editData.id} />
         }
-    }
+     }
 
     return(
         <div className="edit-window">
