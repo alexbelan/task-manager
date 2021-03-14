@@ -6,6 +6,7 @@ import { deleteTodo, deleteTodoOnFrontend } from '../../redux/actions/todoAction
 import AddFile from './AddFile'
 import { ShowFiles } from './showFiles'
 import { ShowLists } from './showLists'
+import ShowToday from './ShowToday'
 
 export default function Sidebar() {
     const files = useSelector(state => state.file);
@@ -76,7 +77,7 @@ export default function Sidebar() {
             } else {
                 if (list !== undefined) {
                     const listId = list.getAttribute('data-id')
-                    dispatch(changeList(listId))
+                    dispatch(changeList(+listId))
                 }
             }
         }
@@ -84,6 +85,9 @@ export default function Sidebar() {
 
     return (
         <div className="sidebar">
+            <div className="today-todo">
+                <ShowToday/>
+            </div>
             <div className="basic-todo">
                 <ShowLists lists={lists} sidebar={sidebar}/>
             </div>
