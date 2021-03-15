@@ -18,6 +18,12 @@ export default function({refList}) {
                 <h3>Today</h3>
             </>
         )
+    } else if (list === undefined && typeof refList === "string" && refList === "check") {
+        return (
+            <>
+                <h3>Check</h3>
+            </>
+        )
     } else {
         return (
             <h3>List don't open</h3>

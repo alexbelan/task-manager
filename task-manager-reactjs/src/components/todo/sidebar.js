@@ -6,6 +6,7 @@ import { deleteTodo, deleteTodoOnFrontend } from '../../redux/actions/todoAction
 import AddFile from './AddFile'
 import { ShowFiles } from './showFiles'
 import { ShowLists } from './showLists'
+import ShowReady from './ShowReady'
 import ShowToday from './ShowToday'
 
 export default function Sidebar() {
@@ -87,6 +88,9 @@ export default function Sidebar() {
         <div className="sidebar">
             <div className="today-todo">
                 <ShowToday/>
+            </div>
+            <div className="check-todo">
+                <ShowReady/>
             </div>
             <div className="basic-todo">
                 <ShowLists lists={lists} sidebar={sidebar}/>

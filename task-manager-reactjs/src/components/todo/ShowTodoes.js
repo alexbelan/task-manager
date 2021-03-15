@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addDataEditWindow, openEditWindow } from '../../redux/actions/appActions'
 import { readyTodo, cancelTodo, deleteTodo } from '../../redux/actions/todoActions'
+import TodoReady from './TodoReady'
 import TodoToday from './TodoToday'
 import TodoViewNotReady from './TodoViewNotReady'
 import TodoViewReady from './TodoViewReady'
@@ -45,7 +46,11 @@ export default function() {
         )
     } else if (typeof refList === "string" && refList === "today") {
         return (
-            <TodoToday todoes={todoes} reflist={refList} readyTodoClick={readyTodoClick} />
+            <TodoToday todoes={todoes} readyTodoClick={readyTodoClick} />
+        )
+    } else if (typeof refList === "string" && refList === "check") {
+        return (
+            <TodoReady todoes={todoes} readyTodoClick={readyTodoClick} />
         )
     } else {
         return "List don't open"

@@ -1,5 +1,4 @@
 import React from 'react';
-import Moment from 'moment'
 import editIcon from '../../img/edit.svg';
 import trashIcon from '../../img/trash.svg';
 import moment from 'moment';
