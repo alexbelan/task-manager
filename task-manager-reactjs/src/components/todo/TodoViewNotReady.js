@@ -31,6 +31,6 @@ export default function ({todoes, reflist, readyTodoClick}) {
             }   
         })
     }  else {
-        return (<div>Нет задач</div>)
+        return (<div className="notTodo">Нет задач</div>)
     }
 }

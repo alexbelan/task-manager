@@ -38,7 +38,7 @@ export default function () {
      }
 
     return(
-        <div className="edit-window">
+        <div className="window">
             <div className="header">
                 <div className="icon">
                     <img onClick={closeWindow} src={closeIcon} />

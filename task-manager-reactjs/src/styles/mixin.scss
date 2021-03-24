@@ -1,0 +1,38 @@
+@mixin user_select_none {
+    -webkit-touch-callout: none; 
+    -webkit-user-select: none;   
+    -khtml-user-select: none;   
+    -moz-user-select: none;      
+    -ms-user-select: none;       
+    user-select: none; 
+}
+
+@mixin icon($margin: 0 10px 0 0, $size: 20px) {
+    img.icon {
+        height: $size;
+        margin: $margin;
+    }
+}
+
+@mixin form($width_form: 300px, $border: 1px solid gray ) {
+    position: fixed;
+    width: $width_form;
+    border: $border;
+    margin: 5% auto;
+    padding: 20px;
+    left: 0;
+    right: 0;
+}
+
+@mixin cut_text($width) {
+    width: $width;
+    height: 24px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+// @mixin input {
+//     font-size: 20px;
+    
+// }

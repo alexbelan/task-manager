@@ -26,17 +26,9 @@ class ToDo extends Component {
         this.props.getTodoes()
     }
 
-    logOut() {
-        this.props.clearUserData()
-        LocalStorageApi.deleteToken()
-        window.location.href = DOMEN_SITE + "/auth"
-    }
-
     render(h) {
         return (
             <>
-                <h1>Добро пожаловать {this.props.user.username}</h1>
-                <button onClick={this.logOut.bind(this)}>Log Out</button>
                 <div className="todo-app">
                     {this.props.edit === true &&
                         <EditWindow/>

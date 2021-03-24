@@ -30,7 +30,12 @@ export default function({index}) {
 
     return (
         <form onSubmit={submitFile}>
-            <input type="text" value={name} onChange={changeInputName}/>
+            <div>
+                <label for="nameFile">
+                    <h5>Name:</h5>
+                </label>
+                <input id="nameFile" type="text" value={name} onChange={changeInputName}/>
+            </div>
             <input type="submit"/>
         </form>
     )

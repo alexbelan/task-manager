@@ -16,13 +16,21 @@ export const ShowFiles = ({fileData, lists, sidebar}) => {
                 showFiles.push(
                     <div className="file-block">
                         <div onClick={sidebar.clickFile} className="file" key={index} >
-                            <img className="icon" src={folder} />
-                            <h4>{objFile.name}</h4>
-                            <div className="edit-file"><img className="edit-file icon" src={editIcon} /></div>
-                            <div className="delete-file">
-                                <img className="delete-file icon" src={trashIcon} />
+                            <div className="file-title">
+                                <img className="icon" src={folder} />
+                                <h4>{objFile.name}</h4>
                             </div>
-                            <div className="add-list"><img className="add-list icon" src={add} /></div>
+                            <div className="file-actions">
+                                <div className="edit-file">
+                                    <img className="edit-file icon" src={editIcon} />
+                                </div>
+                                <div className="delete-file">
+                                    <img className="delete-file icon" src={trashIcon} />
+                                </div>
+                                <div className="add-list">
+                                    <img className="add-list icon" src={add} />
+                                </div>
+                            </div>
                         </div>
                         {fileLists.length !== 0 &&
                             <ul 
@@ -37,7 +45,7 @@ export const ShowFiles = ({fileData, lists, sidebar}) => {
                                         key={index} 
                                         data-id={item.listId}> 
                                         <img className="icon" src={list} />
-                                        <p>{item.name}</p>
+                                        <p title={item.name}>{item.name}</p>
                                         <img className="edit-list icon" src={editIcon} />
                                         <div className="delete-list">
                                             <img className="delete-list icon" src={trashIcon} />

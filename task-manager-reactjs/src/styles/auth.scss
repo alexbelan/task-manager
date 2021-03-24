@@ -1,0 +1,12 @@
+.form {
+    @include form();
+    h2 {
+        margin: 5px 0;
+    }
+    .link-auth {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        margin-top: 10px;
+    }
+}

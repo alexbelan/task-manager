@@ -8,25 +8,24 @@ export default function({refList}) {
     if (list !== undefined && Number.isInteger(refList) && refList > -1) {
         return (
             <>
-                <h3>{list.name}</h3>
-                <BtnAddTodo listId={listId}/>
+                <h4>{list.name}</h4>
             </>
         )
     } else if (list === undefined && typeof refList === "string" && refList === "today") {
         return (
             <>
-                <h3>Today</h3>
+                <h4>Today</h4>
             </>
         )
     } else if (list === undefined && typeof refList === "string" && refList === "check") {
         return (
             <>
-                <h3>Check</h3>
+                <h4>Check</h4>
             </>
         )
     } else {
         return (
-            <h3>List don't open</h3>
+            <h4>List don't open</h4>
         )
     }
 }

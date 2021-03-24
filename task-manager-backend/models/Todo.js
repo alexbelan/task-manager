@@ -8,7 +8,7 @@ const Todo = new Schema({
     list: {type: Number, ref: 'List'},
     user: {type: Number, ref: 'Users'},
     title: {type: String, maxlength: 100, required: true},
-    description: {type: String, maxlength: 200, default: "", required: true},
+    description: {type: String, maxlength: 200, default: ""},
     ready: {type: Boolean, default: false},
     date: {type: String, default: ""},
     time: {type: String, default: ""},

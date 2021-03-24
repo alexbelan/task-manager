@@ -53,6 +53,6 @@ export default function() {
             <TodoReady todoes={todoes} readyTodoClick={readyTodoClick} />
         )
     } else {
-        return "List don't open"
+        return <div className="notTodo">List don't open</div>
     }
 }

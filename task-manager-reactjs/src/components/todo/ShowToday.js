@@ -15,9 +15,11 @@ export default function() {
         <div className="file-block">
             <div 
             onClick={openTodoToday} 
-            className="file" >
-                <img className="icon" src={clockIcon} />
-                <h4>Today</h4>
+            className="file standard" >
+                <div className="file-title">
+                    <img className="icon" src={clockIcon} />
+                    <h4>Today</h4>
+                </div>
             </div>
         </div>
     )

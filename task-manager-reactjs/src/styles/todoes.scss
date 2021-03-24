@@ -1,29 +1,60 @@
+.todoes {
+    width: calc(100% - 250px - 20px);
+    .header-list {
+        width: 100%;
+        background-color: $color1;
+        padding: 20px 10px;
+        border-bottom: 1px $color1 solid;
+        h4 {
+            // font-size: 1em;
+            text-align: center;
+            height: 20px;
+            margin: 0;
+        }
+    }
+    .actions {
+        margin: 10px;
+        width: 100%;
+        display: flex;
+    }
+}
 
 .todo {
     display: flex;
     justify-content: space-between;
+    background-color: $color_todo;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    cursor: pointer;
+    input, label {
+        cursor: pointer;
+    }
     .control {
         display: flex;
         width: 32px;
     }
     img {
         width: 16px;
-        cursor: pointer;
+        // cursor: pointer;
     }
 }
 
-.edit-window {
+
+
+.notTodo {
+    font-family: "Roboto";
+    font-weight: 700;
+    font-style: normal;
+}
+
+.window {
+    @include form(500px);
     background-color: white;
-    border: black 1px solid;
-    position: fixed;
-    margin:auto;
-    width: 500px;
     min-height: 100px;
     max-height: 500px;
     overflow-y: auto;
-    margin: 5% auto; 
-    left: 0;
-    right: 0;
     .header {
         .icon {
             cursor: pointer;

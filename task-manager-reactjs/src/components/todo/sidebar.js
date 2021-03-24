@@ -4,6 +4,7 @@ import { addDataEditWindow, changeList, fileNewList, openEditWindow } from '../.
 import { deleteList, getTodoesList } from '../../redux/actions/listActions'
 import { deleteTodo, deleteTodoOnFrontend } from '../../redux/actions/todoActions'
 import AddFile from './AddFile'
+import HeaderSidebar from './HeaderSidebar'
 import { ShowFiles } from './showFiles'
 import { ShowLists } from './showLists'
 import ShowReady from './ShowReady'
@@ -15,6 +16,7 @@ export default function Sidebar() {
     const todoes = useSelector(state => state.todo);
     const refList = useSelector(state => state.app.refList);
     const dispatch = useDispatch()
+    const [lengthFile, setLengthFile] = useState(0);
 
     const deleteTodoes = (listId) => {
         const todoesList = lists[listId].todo;
@@ -26,6 +28,16 @@ export default function Sidebar() {
         }
     }
 
+    const renderFile = (size, file) => {
+        console.log(size + " " + file)
+        if (size === 0) {
+            file.style.height = 34 + 2 + "px"
+        } else if (size > 0) {
+            file.style.height = (34 * size) + 2 + "px"
+        }
+        file.style.cssText += "margin: 0 0 20px 30px";
+    }
+
     const sidebar = {
         clickFile: (e) => {
             const target = e.target.className.split(' ')[0];
@@ -33,10 +45,8 @@ export default function Sidebar() {
             if (target === "add-list") {
                 dispatch(addDataEditWindow({type: "addList", id: fileLists.getAttribute('data-id')}))
                 dispatch(openEditWindow())
-                // let listLength = fileLists.getAttribute('data-length')
-                // listLength++;
-                // fileLists.style.height = 30 * listLength + "px"
-                // fileLists.setAttribute('data-open', true)
+                // const listLength = fileLists.getAttribute('data-length')
+                // renderFile(listLength, )
             } else if (target === "edit-file") {
                 const fileId = fileLists.getAttribute('data-id')
                 dispatch(addDataEditWindow({type: "file", id: fileId}))
@@ -48,14 +58,11 @@ export default function Sidebar() {
             } else {
                 if (fileLists.getAttribute('data-open') === "false") {
                     const listLength = fileLists.getAttribute('data-length')
-                    if (listLength === 0) {
-                        fileLists.style.height = 30 + "px"
-                    } else if (listLength > 0) {
-                        fileLists.style.height = (30 * listLength) + "px"
-                    }
+                    renderFile(listLength, fileLists)
                     fileLists.setAttribute('data-open', true)
                 } else {
                     fileLists.style.height = 0
+                    fileLists.style.cssText += "margin: 0 0 0 30px";
                     fileLists.setAttribute('data-open', false)
                 }
             }
@@ -63,6 +70,7 @@ export default function Sidebar() {
         openList: (e) => {
             const list = e.currentTarget
             const target = e.target
+            const filePerent = list.parentNode;
             if (target.className.split(' ')[0] === 'edit-list') {
                 const listId = list.getAttribute('data-id')
                 dispatch(addDataEditWindow({type: "list", id: listId}))
@@ -70,6 +78,9 @@ export default function Sidebar() {
             } else if (target.className.split(' ')[0] === 'delete-list') {
                 const listId = list.getAttribute('data-id')
                 const id = lists.findIndex(el => el.listId === +listId)
+                const sizeFile = +filePerent.getAttribute('data-length')
+                filePerent.setAttribute('data-length', sizeFile - 1)
+                renderFile(sizeFile - 1, filePerent)
                 if (refList === listId) {
                     dispatch(changeList(-1))
                 }
@@ -86,6 +97,7 @@ export default function Sidebar() {
 
     return (
         <div className="sidebar">
+            <HeaderSidebar/>
             <div className="today-todo">
                 <ShowToday/>
             </div>

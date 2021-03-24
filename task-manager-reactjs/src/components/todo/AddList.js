@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { fileNewList } from '../../redux/actions/appActions';
 import { newList } from '../../redux/actions/listActions';
+import { addDataEditWindow, closeEditWindow } from '../../redux/actions/appActions';
 
 export default function({fileId}) {
     const dispatch = useDispatch();
@@ -9,6 +10,7 @@ export default function({fileId}) {
         name: "",
         description: ""
     });
+    const [file, setFile] = useState(document.querySelector(`[data-id="${fileId}"]`))
 
     const changeInputData = event => {
         event.persist()
@@ -22,8 +24,21 @@ export default function({fileId}) {
 
     const submitList = event => {
         event.preventDefault();
-        dispatch(newList({data: data, fileId: fileId}))
-        dispatch(fileNewList(null))
+        if (data.name.length >= 50) {
+            alert("Very large name for the list, less than 50 characters needed")
+        } else {
+            dispatch(newList({data: data, fileId: fileId}))
+            dispatch(fileNewList(null))
+            const openFile = file.getAttribute("data-open")
+            const size = +file.getAttribute('data-length') + 1;
+            if (openFile === "true") {
+                if (size > 0) {
+                    file.style.height = (34 * size) + 2 + "px"
+                }
+            }
+            dispatch(closeEditWindow());
+            dispatch(addDataEditWindow({type: "", id: -1}))
+        }
     }
 
     return (

@@ -1,0 +1,42 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    // overflow: hidden;
+}
+
+h1, h4, p, a {
+    font-family: "Roboto";
+    font-weight: normal;
+    font-style: normal;
+    // color: $red;
+}
+
+h3, .todo {
+    font-family: "Roboto";
+    font-weight: 500;
+}
+
+h2, h5 {
+    font-family: "Roboto";
+    font-weight: 700;
+    font-style: normal;
+}
+
+.todo-app {
+    display: flex;
+}
+
+.btn, button {
+    border: black solid 1px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+    background-color: white;
+    h4 {
+        margin: 0;
+    }
+    @include icon();
+}

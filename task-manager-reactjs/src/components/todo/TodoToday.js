@@ -98,6 +98,6 @@ export default function ({todoes, readyTodoClick}) {
             </>
         )
     }  else {
-        return (<div>Нет задач</div>)
+        return (<div className="notTodo">Нет задач</div>)
     }
 }

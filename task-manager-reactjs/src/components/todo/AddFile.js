@@ -12,8 +12,13 @@ export default function() {
     }
 
     return (
-        <div onClick={addFile} className="file-block">
-            <div className="file"><img src={add} className="icon"/><h4>Add file</h4></div>
+        <div onClick={addFile} className="file-block add-file">
+            <div className="file">
+                <div className="file-title">
+                    <img src={add} className="icon"/>
+                    <h4>Add file</h4>
+                </div>
+            </div>
         </div>
     )
 }
